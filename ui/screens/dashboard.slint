@@ -1,11 +1,45 @@
-import { Theme, AuraButton, AuraInput, AuraCard } from "../aura-ui/aura.slint";
+import { Theme, AuraButton, AuraInput, AuraCard ,AuraSidebar } from "../aura-ui/aura.slint";
+import { AppState } from "../store.slint";
 
-export component Dashboard inherits HorizontalLayout {
-        AuraCard {
-        title: "My Card";
+export component Dashboard inherits Rectangle {
+    background: Theme.main-bg;
 
-        Text {
-            text: "Card content goes here";
+    HorizontalLayout {
+        // 1. The Sidebar
+        AuraSidebar {
+            branding-text: "AURA POS";
+            version-text: AppState.app_version; // Shows the version from Rust
+
+            item-clicked(id) => {
+                // You can change screens inside the dashboard here
+               // println("Clicked item: " + id);
+            }
+        }
+
+        // 2. The Main Content Area
+        VerticalLayout {
+            padding: Theme.space-lg;
+            spacing: Theme.space-md;
+
+            // Simple Top Bar
+            HorizontalLayout {
+                Text {
+                    text: "Welcome back, " + AppState.user_name;
+                    font-size: 24px;
+                    color: Theme.text-main;
+                }
+            }
+
+            // Main View Window
+            AuraCard {
+                vertical-stretch: 1;
+                Text {
+                    text: "Select an item from the sidebar to begin.";
+                    color: Theme.text-muted;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
         }
     }
 }
