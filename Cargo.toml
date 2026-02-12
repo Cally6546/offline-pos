@@ -1,0 +1,19 @@
+[package]
+name = "pos10"
+version = "0.1.0"
+edition = "2024"
+description = "Advanced Aura POS System"
+repository = "https://github.com/youruser/pos10"
+
+[dependencies]
+self_update = "0.42.0"
+slint = "1.15.1"
+
+[build-dependencies]
+slint-build = "1.15"
+
+[package.metadata.bundle]
+name = "Aura POS"
+identifier = "com.calson.pos"
+icon = ["icons/32x32.png", "icons/128x128.png"]
+category = "Office"

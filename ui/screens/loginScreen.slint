@@ -1,0 +1,50 @@
+import { Theme, AuraButton, AuraInput, AuraCard } from "../aura-ui/aura.slint";
+import { AuthStore } from "../store.slint";
+
+export component LoginScreen inherits AuraCard {
+    title: "Login";
+    width: 400px;
+    height: 450px;
+
+    VerticalLayout {
+        spacing: Theme.space-md;
+        padding: Theme.space-lg;
+
+        AuraInput {
+            label: "Email";
+            text <=> AuthStore.email; // Binds directly to global store
+            placeholder: "user@example.com";
+            leading-icon: @image-url("../aura-ui/icons/email.svg");
+            has-error: AuthStore.email_error != "";
+            error-message: AuthStore.email_error;
+        }
+
+        AuraInput {
+            label: "Pin";
+            text <=> AuthStore.pin; // Binds directly to global store
+            input-kind: "password";
+            placeholder: "Enter Pin";
+            leading-icon: @image-url("../aura-ui/icons/lock.svg");
+            has-error: AuthStore.pin_error != "";
+            error-message: AuthStore.pin_error;
+        }
+
+        VerticalLayout {
+            spacing: Theme.space-sm;
+            padding-top: Theme.space-md;
+
+            AuraButton {
+                text: "Login";
+                is-loading: AuthStore.is_loading;
+                clicked => {
+                    // We pass the data from the store into the callback
+                    AuthStore.login_requested(AuthStore.email, AuthStore.pin);
+                }
+            }
+
+            AuraButton {
+                text: "Create Account";
+            }
+        }
+    }
+}

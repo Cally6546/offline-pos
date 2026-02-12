@@ -1,0 +1,18 @@
+export global AppState {
+    in-out property <string> active_screen: "login";
+    in-out property <string> user_name: "Guest";
+}
+
+export global AuthStore {
+    // Data
+    in-out property <string> email;
+    in-out property <string> pin;
+
+    // Status
+    in-out property <bool> is_loading: false;
+    in-out property <string> email_error: "";
+    in-out property <string> pin_error: "";
+
+    // Actions
+    callback login_requested(string, string);
+}

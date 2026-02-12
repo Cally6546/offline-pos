@@ -1,0 +1,67 @@
+import { LoginScreen } from "./screens/loginScreen.slint";
+import { AuthStore, AppState } from "./store.slint";
+import { VerticalBox, Button } from "std-widgets.slint";
+export { AuthStore, AppState }
+
+export component MainController inherits Window {
+    title: "Aura POS System";
+
+    // By setting these to your screen resolution, Slint will try to
+    // open the window at this size.
+    preferred-width: 1200px;
+    preferred-height: 800px;
+
+    background: #f5f6fa;
+
+    // A Main Container that fills the whole window
+    Rectangle {
+        width: 100%;
+        height: 100%;
+
+        // LOGIN SCREEN STATE
+        if (AppState.active_screen == "login") : VerticalLayout {
+            // This centers the children vertically
+            alignment: center;
+
+            HorizontalLayout {
+                // This centers the children horizontally
+                alignment: center;
+
+                LoginScreen {
+                    // This stays its fixed 400x450 size,
+                    // and the layouts above handle the "centering" math.
+                }
+            }
+        }
+
+        // DASHBOARD SCREEN STATE
+        if (AppState.active_screen == "dashboard") : VerticalLayout {
+            padding: 30px;
+            spacing: 20px;
+
+            // Simple Full-Width Header
+            Rectangle {
+                background: white;
+                height: 80px;
+                border-radius: 10px;
+                drop-shadow-blur: 8px;
+                drop-shadow-color: #00000020;
+
+                Text {
+                    text: "POS DASHBOARD - Welcome, " + AppState.user_name;
+                    font-size: 24px;
+                    x: 20px;
+                    vertical-alignment: center;
+                }
+            }
+
+            // Main Content Area
+            Rectangle {
+                background: #ffffff;
+                border-radius: 10px;
+                // This takes up all remaining space
+                Text { text: "Main POS Interface"; color: gray; }
+            }
+        }
+    }
+}
